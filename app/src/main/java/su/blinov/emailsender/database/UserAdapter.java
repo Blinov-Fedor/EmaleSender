@@ -1,4 +1,4 @@
-package su.blinov.emailsender;
+package su.blinov.emailsender.database;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,10 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import su.blinov.emailsender.R;
+import su.blinov.emailsender.model.User;
+import su.blinov.emailsender.activity.EditActivity;
+
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     private List<User> users;
-    private Context context;
-    private AppDatabase db;
+    private final Context context;
+    private final AppDatabase db;
 
     public UserAdapter(Context context, AppDatabase db) {
         this.context = context;

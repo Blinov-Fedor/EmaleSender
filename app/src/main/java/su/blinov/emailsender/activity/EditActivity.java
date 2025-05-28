@@ -1,4 +1,4 @@
-package su.blinov.emailsender;
+package su.blinov.emailsender.activity;
 
 import android.os.Bundle;
 import android.widget.EditText;
@@ -6,6 +6,10 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
+
+import su.blinov.emailsender.database.AppDatabase;
+import su.blinov.emailsender.R;
+import su.blinov.emailsender.model.User;
 
 public class EditActivity extends AppCompatActivity {
     private AppDatabase db;
@@ -19,7 +23,7 @@ public class EditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit);
 
         db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "users-db").build();
+                AppDatabase.class, "app-db").build();
 
         etName = findViewById(R.id.etName);
         etEmail = findViewById(R.id.etEmail);

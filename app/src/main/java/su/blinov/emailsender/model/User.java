@@ -1,4 +1,4 @@
-package su.blinov.emailsender;
+package su.blinov.emailsender.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;

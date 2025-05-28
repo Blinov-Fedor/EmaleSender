@@ -1,4 +1,4 @@
-package su.blinov.emailsender;
+package su.blinov.emailsender.database;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -7,6 +7,8 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import java.util.List;
+
+import su.blinov.emailsender.model.User;
 
 @Dao
 public interface UserDao {

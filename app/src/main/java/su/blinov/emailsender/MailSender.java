@@ -11,34 +11,49 @@ import jakarta.mail.Session;
 import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import su.blinov.emailsender.database.SettingsViewModel;
 
 public class MailSender {
+    private final String emailFrom;
+    private final String nameFrom;
+    private final String password;
+    private final String subject;
+    private final String serverHost;
+    private final Integer serverPort;
+    private final Boolean smtpAuth;
+    private final Boolean smtpTLS;
 
-    final String userName = "";
-    final String password = "";
-    private SettingsViewModel viewModel;
+    public MailSender(
+            String emailFrom, String nameFrom, String password,
+            String subject, String serverHost, Integer serverPort,
+            Boolean smtpAuth, Boolean smtpTLS) {
+        this.emailFrom = emailFrom;
+        this.nameFrom = nameFrom;
+        this.password = password;
+        this.subject = subject;
+        this.serverHost = serverHost;
+        this.serverPort = serverPort;
+        this.smtpAuth = smtpAuth;
+        this.smtpTLS = smtpTLS;
+    }
 
 
     public void sendEmail(String email, String template) {
-
         Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "");
-        props.put("mail.smtp.port", "");
-
+        props.put("mail.smtp.auth", this.smtpAuth);
+        props.put("mail.smtp.starttls.enable", this.smtpTLS);
+        props.put("mail.smtp.host", this.serverHost);
+        props.put("mail.smtp.port", this.serverPort);
         Session session = Session.getInstance(props,
                 new Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(userName, password);
+                        return new PasswordAuthentication(emailFrom, password);
                     }
                 });
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("", "Theo Blinov"));
+            message.setFrom(new InternetAddress(this.emailFrom, this.nameFrom));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-            message.setSubject("Test email");
+            message.setSubject(this.subject);
             message.setText(template);
 
             Transport.send(message);

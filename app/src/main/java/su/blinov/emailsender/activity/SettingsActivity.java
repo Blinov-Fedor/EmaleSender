@@ -7,11 +7,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.Optional;
+
 import su.blinov.emailsender.R;
-import su.blinov.emailsender.database.AppDatabase;
 import su.blinov.emailsender.database.SettingsViewModel;
 import su.blinov.emailsender.model.Settings;
 
@@ -21,8 +21,6 @@ public class SettingsActivity extends AppCompatActivity {
     private EditText etEmailFromSettings, etNameFromSettings, etPasswordSettings,
             etSubjectSettings, etHostSettings, etPortSettings;
     private CheckBox checkboxAuth, checkboxTls;
-    private LiveData<Settings> existingSettings;
-    private AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +96,10 @@ public class SettingsActivity extends AppCompatActivity {
                 etPasswordSettings.getText().toString(),
                 etSubjectSettings.getText().toString(),
                 etHostSettings.getText().toString(),
-                parsePort(etPortSettings.getText().toString()),
+                Optional.ofNullable(
+                        parsePort(Optional.of(
+                                etPortSettings.getText().toString()).orElse("0")))
+                        .orElse(0),
                 checkboxAuth.isChecked(),
                 checkboxTls.isChecked()
         );

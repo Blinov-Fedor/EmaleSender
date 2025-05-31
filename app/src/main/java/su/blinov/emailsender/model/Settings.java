@@ -10,6 +10,7 @@ public class Settings {
     @NonNull
     private final String emailFrom;
     private final String nameFrom;
+    //TODO: Сделать хэш+соль, как минимум
     private final String password;
     private final String subject;
     private final String serverHost;
